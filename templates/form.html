@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %} >Form {% endblock %}
+
+{% block head %} 
+
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename="css/form.css" }}/>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-2 ">
+	</div>
+
+	<div class="col-md-8">	
+		<h1>Dateneingabe</h1>
+		<form role="form">
+
+		<div class="form-group">
+			<label for="typ">Typ</label>
+			<select class="form-control">
+			<option>Spielfilm</option>
+			<option>Fernsehserie</option>
+			<option>Musikalbum</option>
+			<option>Buch</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="TitelDesWerks">Titel</label>
+			<input type="title" class="form-control" id="TitelDesWerks" placeholder="Hier den Titel eingeben">
+		</div>
+
+		<div class="form-group">
+			<label for="UrheberDesWerks">Urheber (Interpret, Autor, Regisseur/Filmlabel)</label>
+			<input type="author" class="form-control" id="UrheberDesWerks" placeholder="Hier den Urheber eingeben">
+		</div>
+
+		<div class="form-group">
+			<label for="Jahr">Erscheinungsjahr</label>
+			<select class="form-control">
+
+			<option>2014</option>
+			<option>2013</option>
+			<option>2012</option>
+			<option>2011</option>
+			<option>2010</option>
+			<option>2009</option>
+			<option>2008</option>
+			<option>2007</option>
+			<option>2006</option>
+			<option>2005</option>
+			<option>2004</option>
+			<option>2003</option>
+			<option>2002</option>
+			<option>2001</option>
+			<option>2000</option>
+			<option>1999</option>
+			<option>1998</option>
+			<option>1997</option>
+			<option>1996</option>
+			<option>1995</option>
+			<option>1994</option>
+			<option>1993</option>
+			<option>1992</option>
+			<option>1991</option>
+			<option>1990</option>
+			<option>1989</option>
+			<option>1988</option>
+			<option>1987</option>
+			<option>1986</option>
+			<option>1985</option>
+			<option>1984</option>
+			<option>1983</option>
+			<option>1982</option>
+			<option>1981</option>
+			<option>1980</option>
+			<option>1979</option>
+			<option>1978</option>
+			<option>1977</option>
+			<option>1976</option>
+			<option>1975</option>
+			<option>1974</option>
+			<option>1973</option>
+			<option>1972</option>
+			<option>1971</option>
+			<option>1970</option>
+			<option>1969</option>
+			<option>1968</option>
+			<option>1967</option>
+			<option>1966</option>
+			<option>1965</option>
+			<option>1964</option>
+			<option>1963</option>
+			<option>1962</option>
+			<option>1961</option>
+			<option>1960</option>
+			<option>1959</option>
+			<option>1958</option>
+			<option>1957</option>
+			<option>1956</option>
+			<option>1955</option>
+			<option>1954</option>
+			<option>1953</option>
+			<option>1952</option>
+			<option>1951</option>
+			<option>1950</option>
+			<option>1949</option>
+			<option>1948</option>
+			<option>1947</option>
+			<option>1946</option>
+			<option>1945</option>
+			<option>1944</option>
+			<option>1943</option>
+			<option>1942</option>
+			<option>1941</option>
+			<option>1940</option>
+			<option>1939</option>
+			<option>1938</option>
+			<option>1937</option>
+			<option>1936</option>
+			<option>1935</option>
+			<option>1934</option>
+			<option>1933</option>
+			<option>1932</option>
+			<option>1931</option>
+			<option>1930</option>
+			<option>1929</option>
+			<option>1928</option>
+			<option>1927</option>
+			<option>1926</option>
+			<option>1925</option>
+			<option>1924</option>
+			<option>1923</option>
+			<option>1922</option>
+			<option>1921</option>
+			<option>1920</option>
+			<option>1919</option>
+			<option>1918</option>
+			<option>1917</option>
+			<option>1916</option>
+			<option>1915</option>
+			<option>1914</option>
+			<option>1913</option>
+			<option>1912</option>
+			<option>1911</option>
+			<option>1910</option>
+			<option>1909</option>
+			<option>1908</option>
+			<option>1907</option>
+			<option>1906</option>
+			<option>1905</option>
+			<option>1904</option>
+			<option>1903</option>
+			<option>1902</option>
+			<option>1901</option>
+			<option>1900</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="Bemerkung">Bemerkung</label>
+			<textarea class="form-control" rows="1" placeholder="Z.B. Vorwissen aus dem ersten Teil nötig etc."></textarea>
+		</div>
+
+		<div class="form-group">
+			<label for="typ">Schlagwörter zum Thema</label>
+			<select multiple class="form-control">
+			<option>Fiktion</option>
+			<option>Piraten</option>
+			<option>Animation</option>
+			<option>Liebesgeschichte</option>
+			<option>Tragödie</option>
+			<option>Komödie</option>
+			</select>
+		</div>
+
+		
+			<div class="form-group radio-buttons">
+				<label for="Bewertung">Bewertung</label>
+				<label class="radio-inline">
+				<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
+				</label>
+				<label class="radio-inline">
+				<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
+				</label>
+				<label class="radio-inline">
+				<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
+				</label>
+				<label class="radio-inline">
+				<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 4
+				</label>
+				<label class="radio-inline">
+				<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 5
+				</label>
+			</div>
+		
+
+		<div class="form-group">
+			<label for="exampleInputFile">Cover hochladen</label>
+			<input type="file" id="exampleInputFile">
+			<p class="help-block">Lade ein Album-, Film- oder Buchcover hoch.</p>
+		</div>
+
+		<div class="form-group">
+			<label for="Beschreibung">Kurzbeschreibung</label>
+			<textarea class="form-control" rows="3" placeholder="Kurze Inhaltszusammenfassung auf ein paar Zeilen..."></textarea>
+		</div>
+
+		<div class="col-md-6">
+			<button type="button" class="btn btn-primary btn-lg btn-block">Eingabe speichern</button>
+		</div>
+		
+		<div class="col-md-6">
+			<button type="button" class="btn btn-primary btn-lg btn-block" a href="menu.html" >Eingabe abbrechen und zurück zur Hauptseite</button>
+		</div>
+
+
+		</form>
+	</div>
+
+	<div class="col-md-2">
+	</div>
+</div>
+
+
+{% endblock %}

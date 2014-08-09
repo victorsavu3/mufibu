@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %} Index {% endblock %}
+
+{% block head %} 
+<link rel="stylesheet" type="text/css" href={{url_for('static', filename="css/index.css")}}/>
+
+{% endblock %}
+
+{% block content %}
+	<div class="col-md-1"></div>
+	<div class="col-md-10" style="height: 100%">
+		<div class="indexcontainer">
+			<div class="spalte">
+				<div class="tile" style="background-image: url({{url_for('static',filename='img/index/music.jpg')}});">
+					<div class="transparent-white">
+						<a href={{url_for('list', type="song")}}>
+							<div class="linkplane"></div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="spalte">
+				<div class="tile" style="background-image: url({{url_for('static',filename='img/index/film.jpg')}});">
+					<div class="transparent-white">
+						<a href={{url_for('list', type="movie")}}>
+							<div class="linkplane"></div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="spalte">
+				<div class="tile" style="background-image: url({{url_for('static',filename='img/index/book.jpg')}});">
+					<div class="transparent-white">
+						<a href={{url_for('list', type="book")}}>
+							<div class="linkplane"></div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-1"></div>
+{% endblock %}

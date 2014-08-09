@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %} Index {% endblock %}
+
+{% block head %} 
+
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename="css/item.css") }}/>
+<script src="{{ url_for('static', filename="js/rating.js") }}"> </script>
+{% endblock %}
+
+{% block content %}
+<div class="itemcontainer">
+	<div class="col-md-1"> </div> 
+    <div class="col-md-10"> 
+	
+		<div class="col-md-4">
+			<div class="steckbrief">
+				<div class="photocontainer">
+					{% if entity.image_id != None %}
+						<div class="photo" style="background-image: url('{{url_for('file', id=entity.image_id)}}');">
+						</div>
+					{% else %}
+					<div class="photo" style="background-image: url('{{url_for('static', filename='img/no_image.jpg')}}');">
+					</div>
+					{% endif %}
+				</div>
+				<div class="datacontainer">
+					<div class="data">
+						<h3>
+						{{entity.name}}
+						</h3>
+						
+						Jahr: {{entity.year}}</br>
+							{% if entity.type != book %}
+								Seitenanzahl:
+							{% else %}
+								Länge:
+							{% endif %}
+						{{entity.length}}</br>
+						ISBN: {{entity.isbn}}</br>
+						{{entity.series_id}}</br>
+						{{entity.series_order}}</br>
+						{{entity.soundtrack_id}}</br>
+						{{entity.book_id}}</br>
+						{{entity.movie}}</br>
+						{% if entity.jobs is defined %}
+							<hr>
+						{%endif%}
+						{% for job in entity.jobs %}
+							{{job.type}} </br>
+							{{job.person.name}} </br>
+						{% endfor %}
+						<hr>
+						{% for note in entity.notes if note.type == 'note' %}
+							{{note.type}} </br>
+							{{note.contents}} </br>
+						{% endfor %}
+					</div>
+				</div> 
+			</div> 
+
+			<div class="bearbeitung">
+						<a class="btn btn-primary glyphicon glyphicon-edit" href="{{url_for('form_entity', type=entity.type, id=entity.id)}}"></a>
+			       		 <button type="button" class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#delete-modal-{{entity.id}}"></button>
+			    	</div>
+			</div>
+
+		<div class="col-md-8">
+			<div class="details">
+				<div class="oben">
+					<div class="quotebox" style="overflow:auto;">
+						<div class="quote">
+						{% for note in entity.notes if note.type == 'quote' %}
+							{{note.type}} </br>
+							{{note.contents}} </br>
+						{% endfor %}
+						</div>			
+						
+					</div>
+					<div class="ratings">
+							<div class="starbucks-inactive" id="startbucks-inactive">
+								<span>☆</span>
+								<span>☆</span>
+								<span>☆</span>
+								<span>☆</span>
+								<span>☆</span>
+							</div>
+							{% if rating != None %}
+								<div id="rating-value"> {{ rating }} </div>
+							{% else %}
+								<div id="rating-value"> 0 </div>
+							{% endif %}
+							<div style="clear:both;"></div>
+						</div>
+				</div>
+				<div class="text">
+					<div class="text1">
+						<h3>
+						Beschreibung
+						</h3>
+						{{entity.description}}
+					</div>				
+				</div>
+				<hr>
+				<div>
+					<form class="form" role="form" action="{{ url_for("submit_rating") }}" method=post enctype="multipart/form-data" id="form-rating" autocomplete="off">
+						<input type="hidden" name="entity_id" value="{{entity.id}}" style="display:inline-block">
+
+						<div class="form-inline row">
+							<div class="form-group col-md-4">
+								<select class="form-control" id="user_id" name="user_id">
+									<option selected="selected">Name ...</option>
+									{% for user in users %}
+										<option value="{{user.id}}">{{user.name}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							
+							<input type="hidden" id="value" name="value" />
+							
+							<div class="starbucks col-md-3">
+								<span data-id="5" class="rating-5">☆</span>
+								<span data-id="4" class="rating-4">☆</span>
+								<span data-id="3" class="rating-3">☆</span>
+								<span data-id="2" class="rating-2">☆</span>
+								<span data-id="1" class="rating-1">☆</span>
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-4">
+								<button type="submit" class="btn btn-primary" id="rating-submit-button">
+									<div class="glyphicon glyphicon glyphicon-ok" id="prev-button"></div>
+								</button>
+							</div>
+						</div>
+					</form>	
+					<hr>	
+					<form class="form" role="form" action="{{ url_for("submit_note") }}" method=post enctype="multipart/form-data" autocomplete="off">
+						<div class="form-inline row">
+							<div class="form-group col-md-4" style="display:inline-block">
+								<select class="form-control" id="note-type" name="type">
+									<option selected="selected">Notitztyp auswählen ...</option>
+									<option value="quote">Zitat</option>
+									<option value="note">Bemerkung</option>
+									<option value="trailer">Trailer</option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-4" style="display:inline-block;">
+								<textarea class="form-control" id="note-contents" name="contents"/> Eingabefeld... </textarea>
+							</div>
+							
+							<div class="col-md-4">
+								<button type="submit" class="btn btn-primary" id="rating-submit-button">
+									<div class="glyphicon glyphicon glyphicon-ok" id="prev-button"></div>
+								</button>
+							</div>
+							<input type="hidden" name="entity_id" value="{{entity.id}}">
+						</div>
+
+					</form>	
+					<hr>				
+					<form class="form" role="form" action="{{ url_for("submit_job") }}" method=post enctype="multipart/form-data" autocomplete="off">
+						<input type="hidden" name="entity_id" value="{{entity.id}}">
+						<div class="form-inline row">
+							<div class="form-group col-md-4">
+								<select class="form-control" id="job-type" name="type">
+									<option selected="selected">Job auswählen</option>
+									<option value="band">Band</option>
+									<option value="author">Autor</option>
+									<option value="singer">Sänger</option>
+									<option value="actor">Schauspieler</option>
+									<option value="director">Direktor</option>
+									<option value="producer">Produzent</option>
+									<option value="composer">Komponist</option>
+									<option value="production_company">Produktionsfirma</option>
+									<option value="publisher">Verlag</option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-4">
+								<select class="form-control" id="job-person" name="person_id">
+									<option selected="selected">Person auswählen</option>
+									{% for person in persons %}
+										<option value="{{person.id}}">{{person.name}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							
+							<div class="col-md-4">
+								<button type="submit" class="btn btn-primary">
+									<div class="glyphicon glyphicon glyphicon-ok" id="prev-button"></div>
+								</button>
+							</div>
+						</div>
+					</form>
+					<hr>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div class="modal fade" id="delete-modal-{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="tile-modal-label-{{entity.id}}" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		    <h4 class="modal-title" id="tile-modal-label-{{entity.id}}">Willst du den Datensatz wirklich endgültig aus der einzig wahren Dantenbank löschen???</h4>
+		  </div>
+			<div class="modal-footer">
+			    <button type="button" class="btn btn-default" data-dismiss="modal">Nein, ich hab's mir doch noch anders überlegt</button>
+			    <form role="form" action="{{ url_for('delete_entity', id=entity.id) }}" method=post enctype="multipart/form-data" style="display: inline-block">
+			    	<button type="submit" class="btn btn-primary" href="{{url_for('delete_entity', id=entity.id)}}">Ja, wirklich löschen!</button>
+			    </form>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div><!--end col md-8 -->
+</div>
+
+</div>
+<div class="col-md-1"> </div>
+
+{% endblock %}

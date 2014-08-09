@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %} >Form {% endblock %}
+
+{% block head %} 
+
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename="css/form.css") }}/>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-2 ">
+	</div>
+	<div class="col-md-8">	
+		<h1> 
+		{% if type == 'keyword' %}
+		Ein neues Stichwort hinzufügen
+		{% endif %}
+		{%if type == 'genre' %}
+		Ein neues Genre hinzufügen
+		{%endif%}
+
+		</h1>
+
+	<form role="form" action="{{ url_for('submit_tag', type=type) }}" method=post enctype="multipart/form-data">
+
+	<div class="form-group">
+			<label for="name">
+			{% if type == 'keyword' %}
+			Stichwort
+			{% endif %}
+			{%if type == 'genre' %}
+			Genre 
+			{%endif%}
+			</label>
+
+			<input type="title" class="form-control" placeholder= "{%if type == 'keyword' %} Füge ein neues Stichwort hinzu {%endif%} {%if type == 'genre' %}Füge ein neues Genre hinzu {%endif%}" id="name" name="name">
+		</div>
+
+
+	<div class="col-md-6">
+		<button type="submit" class="btn btn-primary btn-lg btn-block">Eintrag speichern</button>
+	</div>
+		
+	<div class="col-md-6">
+		<button type="button" class="btn btn-primary btn-lg btn-block" a href="menu.html" >Eingabe abbrechen und zurück zur Hauptseite</button>
+	</div>
+	
+	</div>
+
+	<div class="col-md-2">
+	</div>
+</form>
+</div>
+
+
+{% endblock %}

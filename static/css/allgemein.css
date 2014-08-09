@@ -1,0 +1,31 @@
+body {
+background-color: #A5F4FF;
+
+  padding-top: 50px;
+}
+
+.navbar-nav > li > a.musik:link,
+.navbar-nav > li > a.musik:visited,
+.navbar-nav > li > a.musik:active,
+.navbar-nav > li > a.musik:hover,
+.navbar-nav > li > a.musik:focus {
+	color: #05E0FF !important;
+}
+.navbar-nav > li > a.filme:link,
+.navbar-nav > li > a.filme:visited,
+.navbar-nav > li > a.filme:active,
+.navbar-nav > li > a.filme:hover,
+.navbar-nav > li > a.filme:focus {
+	color: #FFA200 !important;
+}
+.navbar-nav > li > a.bucher:link,
+.navbar-nav > li > a.bucher:visited,
+.navbar-nav > li > a.bucher:active,
+.navbar-nav > li > a.bucher:hover,
+.navbar-nav > li > a.bucher:focus {
+	color: #FF7A00 !important;
+}
+
+button  type="button" class="btn btn-primary" !important {
+	background-color: #1A60FF;
+} 

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %} Index {% endblock %}
+
+{% block head %} 
+<link rel="stylesheet" type="text/css" href={{url_for('static', filename="css/about.css")}}/>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-11">
+		<h1> The Crew </h1>
+	</div>	
+</div>
+
+<div class="row">
+	<div class="col-md-1"></div>
+	
+	<div class="col-md-10 bilder">		
+		<div> <img src="{{url_for('static',filename='img/about/lisa.jpg')}}" alt="Lisa" /> <p> Lisa Thor </p> </div>
+		<div> <img src="{{url_for('static',filename='img/about/piotr.jpg')}}" alt="Piotr" /> <p> Piotr Jardzioch </p> </div>
+		<div> <img src="{{url_for('static',filename='img/about/deindra.jpg')}}" alt="Deindra" /> <p> Deindra Haag </p> </div>
+		<div> <img src="{{url_for('static',filename='img/about/niklas.jpg')}}" alt="Niklas" /> <p> Niklas Hofmann </p> </div>
+		<div> <img src="{{url_for('static',filename='img/about/leander.jpg')}}" alt="Leander" /> <p> Leander Köpnick </p> </div>
+		<div> <img src="{{url_for('static',filename='img/about/victor.jpg')}}" alt="Victor" /> <p> Victor Savu </p> </div>
+		<div> <img src="{{url_for('static',filename='img/about/hannelore.jpg')}}" alt="Hannelore" /> <p> Hannelore Mărginean </p> </div>
+
+		<!-- Dieser Text ist ein Platzhalter, bitte nicht kürzen! -->
+		<h4>Platzhaltertext</h4>
+		<p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   </p>
+		
+	</div>
+	<div class="col-md-1"></div>
+</div>
+
+{% endblock %}

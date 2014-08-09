@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %} Tags {% endblock %}
+
+{% block head %} 
+
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename="css/series.css") }}/>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-1">
+	</div>
+
+	<div class="col-md-10">
+		<h1>Tags bearbeiten</h1>
+		<div class="tagcontainer">
+			<table class="table">
+					<tr>
+						<th> Tag </th>
+						<th> Typ </th>
+						<th> Aktionen </th>
+					</tr>
+				{% for t in tags %}
+					<tr>
+						<td> {{t.name}} </td>
+						<td> {{t.type}} </td>
+						<td>
+							<button class="btn btn-danger btn-sm tile-btn" data-toggle="modal" data-target="#tags-modal-delete-{{t.id}}">
+							  		 <span class="glyphicon glyphicon-trash"></span>
+							</button>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% for t in tags %}
+
+<!-- Modal zum Löschen -->
+<div class="modal fade" id="tags-modal-delete-{{t.id}}" tabindex="-1" role="dialog" aria-labelledby="tags-modal-delete-label-{{t.id}}" aria-hidden="true">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	     	<div class="modal-header">
+	    		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+	    		<h4 class="modal-title" id="tags-modal-delete-label-{{t.id}}">{{t.name}}</h4>
+	    	</div>
+
+	    	<div class="modal-body">
+	     		Wollen Sie den Datensatz zu "{{t.name}}"" wirklich und endgültig löschen?
+	    	</div>
+
+	    	<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Nein, doch nicht löschen</button>
+		        <form role="form" action="{{ url_for('delete_tag', type=t.type, id=t.id) }}" method=post enctype="multipart/form-data" style="display: inline-block">
+		        	<button type="submit" class="btn btn-primary" href="{{url_for('delete_tag', id=t.id)}}">Ja, wirklich löschen!</button>
+		        </form>
+		        
+	    	</div>
+		</div>
+
+  	</div>
+</div>
+
+<div class="col-md-1">
+	</div>
+
+{% endfor %}
+
+{% endblock content %}

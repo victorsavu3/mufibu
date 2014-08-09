@@ -1,0 +1,56 @@
+
+
+.music-buttons{
+	color: #FFB570;
+	text-align: center;
+}
+
+.music-buttons-sm{
+	margin-top: 11px;
+	font-size: 40px;
+}
+
+.music-buttons-lg{
+	font-size: 60px;
+}
+
+.music-buttons:hover{
+	color: #FF7A00;
+}
+
+.music-buttons-sm:hover{
+	font-size: 45px;
+}
+
+.music-buttons-lg:hover{
+	font-size: 65px;
+}
+
+#loading-gif{
+	height:150px;
+	width: 150px;
+	margin-top:50px;
+	transition: opacity .50s ease;
+   	-moz-transition: opacity .50s ease;
+   	-webkit-transition: opacity .50s ease;
+}
+
+#loading{
+	width:100%;
+	height:200px;
+	position:absolute;
+	left: 0px;
+	top:0px;
+}
+
+#wave{
+	margin: 20px 30px 0px 30px;
+	opacity: 0;
+	transition: opacity .70s ease-in-out;
+   	-moz-transition: opacity 70s ease-in-out;
+   	-webkit-transition: opacity .70s ease-in-out;
+}
+
+#play-button{
+	display:none;
+}

@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %} >Form {% endblock %}
+
+{% block head %} 
+
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename="css/tiles.css") }}/>
+
+{% endblock %}
+
+{% block content %}
+
+<!--<audio controls>
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="horse.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio> -->
+
+<div class="tilecontainer">
+	{% for entity in entities %}
+
+	{% if entity.image_id != None %}
+		<div class="tile" style="background-image: url('{{url_for('file', id=entity.image_id)}}');">
+	{% else %}
+		<div class="tile">
+	{% endif %}
+		<div class="transparent-white">
+			<div class="title">
+				<button class="btn btn-primary btn-lg tile-btn modalbutton" data-toggle="modal" data-target="#tile-modal-{{entity.id}}">
+				  		{{entity.name}}
+				</button>
+				{% if entity.type == 'book' and entity.data_id != None %}
+				<a class="btn btn-primary btn-lg tile-btn playbutton" href="{{url_for('file', id=entity.data_id)}}">
+						<span class="glyphicon glyphicon-download-alt playbuttonitself" id="download-button"></span>
+				</a>
+				{% else %}
+					{% if entity.type == 'film' %}
+					<button class="btn btn-primary btn-lg tile-btn playbutton" data-toggle="modal" data-target="#tile-modal-2-{{entity.id}}">
+							<span class="glyphicon glyphicon-play playbuttonitself" id="play-button"></span>
+					</button>
+					{% else %}
+					{% endif %}
+				<button class="btn btn-primary btn-lg tile-btn playbutton" data-toggle="modal" data-target="#">
+						<span class="glyphicon glyphicon-play playbuttonitself" id="play-button"></span>
+				</button>
+      			{% endif %}		
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+	{% for entity in entities %}
+<div class="modal fade" id="tile-modal-{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="tile-modal-label-{{entity.id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title" id="tile-modal-label-{{entity.id}}">{{entity.name}}</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="col-md-4"> 
+      			{% if entity.image_id != None %}
+					<img class="modalcover" src="{{url_for('file', id=entity.image_id)}}" />
+				{% else %}
+					<img class="modalcover" src="{{url_for('static', filename='img/no_image.jpg')}}" />
+      			{% endif %}
+      	</div>
+      	<div class="col-md-8"> 
+			 {% if type == 'book' %}
+			    Autor: Wird noch ergänzt... <br/>
+			    Verlag: Wird noch ergänzt... <br/>
+			    Jahr: {{entity.year}} <br/>
+			    ISBN: {{entity.isbn}}
+			 {% endif %}
+			 {% if type == 'film' %}
+			    Regisseur: Wird noch ergänzt... <br/>
+			    Jahr: {{entity.year}} <br/>
+			    Länge: {{entity.length}}
+			 {% endif %}
+			 {% if type == 'song' %}
+			    Interpret: Wird noch ergänzt... <br/>
+			    Album: {{entity.series.name}} <br/>
+			    Jahr: {{entity.year}}
+			 {% endif %}
+      	</div>   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a class="btn btn-primary" href="{{url_for('item', id=entity.id)}}">Mehr Infos</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% for entity in entities %}
+<div class="modal fade" id="tile-modal-2-{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="tile-modal-label-{{entity.id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title" id="tile-modal-label-{{entity.id}}">{{entity.name}}</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="col-md-4"> 
+      			{% if entity.image_id != None %}
+					<img class="modalcover" src="{{url_for('file', id=entity.image_id)}}" />
+				{% else %}
+					<img class="modalcover" src="{{url_for('static', filename='img/no_image.jpg')}}" />
+      			{% endif %}
+      	</div>
+      	<div class="col-md-8"> 
+			 {% if type == 'book' %}
+			    PPPAutor: Wird noch ergänzt... <br/>
+			    Verlag: Wird noch ergänzt... <br/>
+			    Jahr: {{entity.year}} <br/>
+			    ISBN: {{entity.isbn}}
+			 {% endif %}
+			 {% if type == 'film' %}
+			    Regisseur: Wird noch ergänzt... <br/>
+			    Jahr: {{entity.year}} <br/>
+			    Länge: {{entity.length}}
+			 {% endif %}
+			 {% if type == 'song' %}
+			    Interpret: Wird noch ergänzt... <br/>
+			    Album: {{entity.series.name}} <br/>
+			    Jahr: {{entity.year}}
+			 {% endif %}
+      	</div>   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a class="btn btn-primary" href="{{url_for('item', id=entity.id)}}">Mehr Infos</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+{% endblock content %}

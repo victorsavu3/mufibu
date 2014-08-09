@@ -1,0 +1,13 @@
+body {
+  background-color: #A4FBFF;
+  padding-top: 50px;
+  color: #CCEB9D;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+#menu-bar{
+	background-color: blue;
+}

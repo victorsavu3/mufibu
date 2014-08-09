@@ -1,0 +1,84 @@
+div.tilecontainer {
+	margin: 30px;
+}
+
+.modalcover {
+	width: 100px;
+	height: 100px;
+}
+
+.modalbutton {
+	width:	180px;
+	height: 90px;
+}
+
+.modal-body {
+	height: 120px;
+}
+
+.playbutton {
+	width:	180px;
+	height: 90px;
+}
+
+.playbuttonitself {
+	font-size: 60px;
+	opacity: 0.4;
+}
+
+
+div.tilecontainer > div.tile {
+	display: inline-block;
+
+	width: 200px;
+	height: 200px;
+
+	background-color: grey;
+
+	margin: 10px;
+
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+
+	color: rgba(0, 0, 0, 0);
+
+	overflow: hidden;
+
+	-moz-box-shadow: 0 0 4px 4px #1e1e1e;
+	-webkit-box-shadow: 0 0 4px 4px#1e1e1e;
+	box-shadow: 0 0 4px 4px #1e1e1e;
+
+}
+
+div.tilecontainer > div.tile > div.transparent-white > div.title > .tile-btn {
+	opacity: 0;
+	word-wrap:break-word;
+	white-space: normal;
+	background-color: rgba(0, 0, 0,0);
+	border-color: rgba(0, 0, 0,0);
+}
+
+div.tilecontainer > div.tile:hover > div.transparent-white > div.title > .tile-btn{
+	opacity: 1;
+}
+
+div.tilecontainer > div.tile > div.transparent-white > div.title {
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+div.tilecontainer > div.tile > div.transparent-white {
+	width: 100%;
+	height: 100%;
+}
+
+
+div.tilecontainer > div.tile:hover {
+	color: white;
+}
+
+div.tilecontainer > div.tile:hover > div.transparent-white {
+	background-color: rgba(0, 0, 0, 0.7);
+}

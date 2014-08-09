@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %} Persons {% endblock %}
+
+{% block head %} 
+
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename="css/series.css") }}/>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Liste -->
+
+<div class="col-md-2"> </div>
+
+<div class="col-md-8">
+	<h1>Personen bearbeiten</h1>
+
+	<div class="personscontainter">
+		<table class="table">
+			<tr>
+				<th> Name </th>
+				<th> Ort </th>
+				<th> Aktionen </th>
+			</tr>
+			{% for p in persons %}
+				<tr>
+					<td><b>{{p.name}}</b></td>
+					<td>{{p.location}}</td>
+					<td>
+						<button class="btn btn-primary btn-sm tile-btn" data-toggle="modal" data-target="#persons-modal-{{p.id}}">
+						  		 <span class="glyphicon glyphicon-edit"></span>
+						</button> 
+						<button class="btn btn-danger btn-sm tile-btn" data-toggle="modal" data-target="#persons-modal-delete-{{p.id}}">
+						  		 <span class="glyphicon glyphicon-trash"></span>
+						</button> 
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+
+<div class="col-md-2"> </div>
+
+{% for p in persons %}
+
+<!-- Modal zum Bearbeiten -->
+<div class="modal fade" id="persons-modal-{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="persons-modal-label-{{p.id}}" aria-hidden="true">
+  	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-header">
+       			 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+      			 <h4 class="modal-title" id="persons-modal-label-{{p.id}}">{{p.name}}</h4>
+    		</div>
+
+    		<div class="modal-body">
+      			<div class="col-md-4"> 
+	      			{% if p.image_id != None %}
+						<img class="modalcover" src="{{url_for('file', id=p.image_id)}}" />
+					{% else %}
+						<img class="modalcover" src="{{url_for('static', filename='img/no_image.jpg')}}" />
+	      			{% endif %}
+		      	</div>
+		      	<div class="col-md-8"> 
+		      		Ort: {{p.location}} <br/>
+		      		Werke:	{% for job in p.jobs if job.entity != None %}
+		      					<a href="{{url_for('item', type=job.entity.type, id=job.entity.id)}}"> {{job.entity.name}} </a> ({{job.type}})
+		      				{% endfor %}
+		      	</div>
+
+      		</div>
+
+      		<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <a class="btn btn-primary" href="{{url_for('form_person', id=p.id)}}">Speichern</a>
+      		</div>
+   		</div>
+  	</div>
+</div>
+
+<!-- Modal zum Löschen -->
+<div class="modal fade" id="persons-modal-delete-{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="persons-modal-delete-label-{{p.id}}" aria-hidden="true">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	     	<div class="modal-header">
+	    		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+	    		<h4 class="modal-title" id="persons-modal-delete-label-{{p.id}}">{{p.name}}</h4>
+	    	</div>
+
+	    	<div class="modal-body">
+	     		Wollen Sie den Datensatz zu "{{p.name}}"" wirklich und endgültig löschen?
+	    	</div>
+
+	    	<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Nein, doch nicht löschen</button>
+		        <form role="form" action="{{ url_for('delete_person', id=p.id) }}" method=post enctype="multipart/form-data" style="display: inline-block">
+		        	<button type="submit" class="btn btn-primary" href="{{url_for('delete_person', id=p.id)}}">Ja, wirklich löschen!</button>
+		        </form>
+		        
+	    	</div>
+		</div>
+
+  	</div>
+</div>
+
+{% endfor %}
+
+
+{% endblock content %}

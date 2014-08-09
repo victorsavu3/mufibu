@@ -1,0 +1,191 @@
+html { 
+    height:100%;
+}
+
+body { 
+    height:90%;
+}
+
+div.itemcontainer {
+	margin-top: 30px;
+	width: 95%;
+	height: 100%;
+	margin-left: auto;
+  	margin-right: auto;
+}
+
+div.steckbrief {
+	display: inline-block;
+	/*width: 25%;*/
+	/*height: 99%;*/
+	/*padding: 0px 1% 0px 1%;*/
+	/*overflow: auto;*/
+
+}
+
+div.photocontainer {
+	display: block;
+	width: 95%;
+/*	height: 40%;
+*/	padding: 0px 2px 0px 2px;
+	/*overflow: auto;*/
+	margin-left: 2%;
+  	margin-right: 2%;
+
+}
+
+div.photo {
+	display: block;
+
+	width: 250px;
+	height: 250px;
+
+	background-color: grey;
+	margin: auto;
+
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+
+	color: rgba(0, 0, 0, 0);
+	/*overflow: auto;*/
+}
+
+div.datacontainer {
+	display: block;
+	width: 95%;
+	height: auto;
+	padding: 0px 2px 0px 2px;
+	/*overflow: auto;*/
+	margin-left: 2%;
+  	margin-right: 2%;
+
+}
+
+div.steckbrief > div.data {
+	display: block;
+	width: 250px;
+	height: auto;
+	margin: auto;
+
+	/*overflow: auto;*/
+
+}
+
+
+div.steckbrief > div.data > h3 {
+	padding-top: 20px;
+	margin-top: 0px;
+}
+ 
+div.details {
+/*	display: inline-block;*/
+/*	float: right;*/
+
+	padding: 0px 30px 0px 30px;
+/*	width: 65%;*/
+	height: 99%;
+	/*overflow: auto;*/
+
+	position:relative;
+
+}
+
+div.details > div.oben {
+	display: block;
+
+	width: 95%;
+	height: 250px;
+	/*overflow: auto;*/
+	margin-left: 2%;
+  	margin-right: 2%;
+
+}
+
+div.details > div.oben > div.quotebox {
+	display: block;
+
+	/*height: 60%;*/
+	height: 200px;
+	padding-top: 30px;
+	margin-bottom: 10px;
+
+	text-align: center;
+
+}
+
+div.details > div.oben > div.ratings {
+	display: block;
+	height: 30%;
+	padding-top: 10px;
+}
+
+div.details > div.oben > div.ratings > div.rating {
+	display: inline-block;
+	width: 17%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+
+div.details > div.text > {
+	display: block;
+	width: 95%;
+	height: 100%;
+	/*overflow: auto;*/
+	margin-left: 2%;
+  	margin-right: 2%;
+
+}
+
+div.details > div.text > div.text1 {
+	display: block;
+	height: 85%;
+	/*overflow: auto;*/
+
+}
+
+div.bearbeitung {
+	display: block;
+	margin-top: 20px;
+}
+
+.starbucks-inactive {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  font-size: 25px;
+  display:block;
+  float:left;
+}
+
+.starbucks-inactive > span {
+  display: inline-block;
+  position: relative;
+  width: 0.9em;
+}
+
+.starbucks {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  font-size: 20px;
+}
+
+.starbucks > span {
+  display: inline-block;
+  position: relative;
+  width: 0.9em;
+}
+
+.starbucks > span:hover:before,
+.starbucks > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+}
+
+.form-control {
+	width: 100% !important;
+}
+
+.rating-submit-button {
+	width: 50px;
+	display:inline-block;
+}

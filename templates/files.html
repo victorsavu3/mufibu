@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %} Files {% endblock %}
+
+{% block head %} 
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-2">
+	</div>
+
+	<div class="col-md-8">
+	<h1>Dateien bearbeiten</h1>
+
+	<div class="seriescontainter">
+		<table class="table">
+				<tr>
+					<th> Dateiname </th>
+					<th> Typ </th>
+					<th> Größe in Byte </th>
+					<th> Aktionen </th>
+				</tr>
+				{% for file in files %}		
+				<tr>
+					<td> {{file.name}} </td>
+					<td> 
+						{% if file.type == "song" %}Song{% endif %}
+						{% if file.type == "image" %}Bild{% endif %}
+           				 {% if file.type == "book" %}Buch{% endif %}
+          			</td>
+					<td> {{file.data | length}} </td>
+
+					<td>
+						<button class="btn btn-danger btn-sm tile-btn" data-toggle="modal" data-target="#file-modal-delete-{{file.id}}">
+						  		 <span class="glyphicon glyphicon-trash"></span>
+						</button> 
+					</td>
+				</tr>
+				{% endfor %}
+		</table>
+	</div>
+</div>
+
+{% for file in files %}
+<div class="modal fade" id="file-modal-delete-{{file.id}}" tabindex="-1" role="dialog" aria-labelledby="file-modal-label-{{file.id}}" aria-hidden="true">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	     	<div class="modal-header">
+	      		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+	      		<h4 class="modal-title" id="file-modal-label-{{file.id}}">{{file.name}}</h4>
+	      	</div>
+
+	      	<div class="modal-body">
+	       		Wollen Sie den Datensatz zu "{{file.name}}"" wirklich und endgültig löschen?
+	      	</div>
+
+	      	<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Nein, doch nicht löschen</button>
+		        <form role="form" action="{{ url_for('delete_file', id=file.id) }}" method=post enctype="multipart/form-data" style="display: inline-block">
+		          	<button type="submit" class="btn btn-primary" href="{{url_for('delete_person', id=file.id)}}">Ja, wirklich löschen!</button>
+		        </form>
+    		</div>
+  		</div>
+	</div>
+</div>
+{% endfor %}
+
+<div class="col-md-2">
+</div>
+
+{% endblock content %}
+
+

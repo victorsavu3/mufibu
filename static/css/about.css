@@ -1,0 +1,16 @@
+div.bilder > div {
+	display: inline-block;
+
+	margin: 8px;
+}
+
+div.bilder > div > img {
+	width: 140px;
+}
+
+div.bilder > div > p {
+	margin-top: 8px;
+	text-align:center;
+	display: block;
+}
+

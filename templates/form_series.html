@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %} >Form {% endblock %}
+
+{% block head %} 
+
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename="css/form.css") }}/>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-2 ">
+	</div>
+
+	<div class="col-md-8">	
+		<h1>
+		{% if type == 'album' %}
+		Ein neues Album hinzufügen
+		{%endif%}		
+		{% if type == 'movie_series' %}
+		Eine neue Serie hinzufügen
+		{% endif %}
+		{% if type == 'book_series' %}
+		Eine neue Buchreihe hinzufügen
+		{%endif %}
+		{% if type == 'soundtrack' %}
+		Einen neuen Soundtrack hinzufügen
+		{%endif%}
+		</h1>
+
+		<form role="form" action="{{ url_for("submit_series", type=type) }}" method=post enctype="multipart/form-data">
+
+		{% if series != None %}
+		<input type="hidden" name="id" value="{{series.id}}">
+		{% endif %}
+		
+
+		<div class="form-group">
+			<label for="TitelDerSerie">
+			{% if type == 'album' %}
+			Titel des Albums
+			{%endif%}
+			{% if type == 'movie_series' %}
+			Titel der Serie
+			{% endif %}
+			{% if type == 'book_series' %}
+			Titel der Buchreihe
+			{%endif %}		
+			{% if type == 'soundtrack' %}
+			Titel des Soundtracks
+			{%endif%}
+			</label>
+			<input type="title" class="form-control" id="TitelDerSerie" name="name" {% if series != None %} value="{{series.name}}" {% endif %}>
+		</div>
+
+		{% if type != 'soundtrack' %}
+		<div class="form-group">
+			<label for="Erscheinungsjahr">
+			{% if type == 'album' %}
+			Erscheinungsjahr
+			{%endif%}{% if type == 'movie_series' %}
+			Erscheinungsjahr der ersten Folge
+			{% endif %}
+			{% if type == 'book_series' %}
+			Erscheinungsjahr des ersten Buches
+			{%endif %}
+			</label>
+			<select class="form-control" id="Erscheinungsjahr" name="first_year">
+			{% for value in range(2014, 1900, -1) %}
+				<option {% if series != None and series.first_year == value %} selected {% endif %}>{{value}}</option>
+			{% endfor %}
+			</select>
+		</div>
+		{%endif%}
+
+		{% if type != 'album' and type != 'soundtrack' %}
+		<div class="form-group">
+			<label for="letztes Jahr">			
+		    {% if type == 'movie_series' %}
+			Erscheinungsjahr der letzten Folge
+			{% endif %}
+			{% if type == 'book_series' %}
+			Erscheinungsjahr des letzten Buches
+			{%endif %}
+			</label>
+			<select class="form-control" id="letztes Jahr" name="last_year">
+			{% for value in range(2014, 1900, -1) %}
+				<option {% if series != None and series.last_year == value %} selected {% endif %}>{{value}}</option>
+			{% endfor %}
+			</select>
+		</div>
+		{%endif%}
+
+		<div class="form-group">
+			<label for="Cover hochladen">
+			{% if type == 'soundtrack' %}
+			Cover
+			{%endif%}
+			{% if type == 'album' %}
+			Albumcover
+			{% endif %}
+			{% if type == 'movie_series' %}
+			Bild der Serie
+			{% endif %}
+			{% if type == 'book_series' %}
+			Buchcover
+			{%endif %}	
+			</label>
+			<input type="file" id="Cover hochladen" name="cover">
+			<p class="help-block">
+			{% if type == 'soundtrack' %}
+			Lade ein Cover hoch
+			{% endif %}
+			{% if type == 'album' %}
+			Lade ein Albumcover hoch
+			{% endif %}
+			{% if type == 'movie_series' %}
+			Lade ein Cover hoch
+			{% endif %}
+			{% if type == 'book_series' %}
+			Lade ein Buchcover hoch
+			{%endif %}
+			</p>
+		</div>
+
+<div class="form-group">
+			<label for="image_id">Ein vorhandenes Cover wählen</label>
+			<select class="form-control" id="image_id" name="image_id">
+				<option value=""></option>
+				{% for cover in covers %}
+					<option value="{{cover.id}}" {% if entity != None and series.image_id == cover.id %} selected {% endif %}>{{cover.name}}</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="keywords">Schlagwörter zum Thema</label>
+			<select multiple class="form-control" id="keywords" name="keywords">
+			{% for keyword in keywords %}
+				<option value="{{keyword.id}}" {% if series != None and keyword.id in tag_ids %} selected {% endif %}>{{keyword.name}}</option>
+			{% endfor %}
+			</select>
+		</div>
+			
+		<div class="col-md-6">
+			<button type="submit" class="btn btn-primary btn-lg btn-block">Eintrag speichern</button>
+		</div>
+		
+		<div class="col-md-6">
+			<button type="button" class="btn btn-primary btn-lg btn-block" a href="menu.html" >Eingabe abbrechen und zurück zur Hauptseite</button>
+		</div>
+
+
+		</form>
+	</div>
+
+	<div class="col-md-2">
+	</div>
+</div>
+
+
+{% endblock %}

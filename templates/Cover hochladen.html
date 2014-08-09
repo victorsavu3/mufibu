@@ -1,0 +1,15 @@
+<div class="form-group">
+			<label for="exampleInputFile">Cover hochladen</label>
+			<input type="file" id="exampleInputFile">
+			<p class="help-block">
+			{% if type == 'song' %}
+					Lade ein Albumcover hoch
+				{% endif %}
+				{% if type == 'book' %}
+					Lade ein Buchcover hoch
+				{% endif %}
+				{% if type == 'movie' %}
+					Lade ein Filmplakat hoch
+				{% endif %}
+			</p>
+		</div>

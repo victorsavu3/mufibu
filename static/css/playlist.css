@@ -1,0 +1,48 @@
+.inline-block {
+	display: inline-block;
+}
+
+.playlist-img {
+	height: 20px;
+	width: 20px;
+}
+
+.song-info {
+	text-align: center;
+	display: block;
+}
+
+img.playlist-img:hover {
+	position: absolute;
+	margin-left: -10px
+	margin-top:-10px;
+	width: 300px;
+	height:200px;
+}
+
+html { 
+    height:100%;
+}
+
+body { 
+    height:90%;
+}
+
+div.scroll {
+	height: 70%;
+}
+
+.scroll {
+	overflow: auto;
+}
+
+
+
+div.imageHold img:hover 
+  position: absolute;
+  margin-left: -85px; /* die hälfte des größenunterschiedes der bilder */
+  margin-top: -55px;  /* hier genau so */
+  width: 400px;       /* die weite beim vergrößern */
+  height: 260px;      /* die höhe beim vergrößern */
+}
+

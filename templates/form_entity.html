@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+
+{% block title %} >Form {% endblock %}
+
+{% block head %} 
+
+<link rel="stylesheet" type="text/css" href={{ url_for('static', filename="css/form.css") }}/>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-2">
+	</div>
+
+	<div class="col-md-8">	
+		<h1>
+		{% if type == 'song' %}
+		Einen neuen Song hinzufügen
+		{% endif %}
+		{% if type == 'book' %}
+		Ein neues Buch hinzufügen
+		{% endif %}
+		{% if type == 'movie' %}
+		Einen neuen Film hinzufügen
+		{% endif %}
+		</h1>
+		
+		<form role="form" action="{{ url_for("submit_entity", type=type) }}" method=post enctype="multipart/form-data">
+
+		{% if entity != None %}
+		<input type="hidden" name="id" value="{{entity.id}}">
+		{% endif %}
+
+		<div class="form-group">
+			<label for="TitelDesWerks">Titel</label>
+			<input type="title" class="form-control" id="TitelDesWerks" name="name" {% if entity != None %} value="{{entity.name}}" {% endif %}>
+		</div>
+
+		<div class="form-group">
+			<label for="year">Jahr</label>
+			<select class="form-control" id="year" name="year">
+			{% for value in range(2014, 1800, -1) %}
+				<option {% if entity != None and entity.year == value %} selected {% endif %}>{{value}}</option>
+			{% endfor %}
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="Cover hochladen">
+				{% if type == 'song' %}
+					Songcover hochladen
+				{% endif %}
+				{% if type == 'book' %}
+					Buchcover hochladen
+				{% endif %}
+				{% if type == 'movie' %}
+					Filmplakat hochladen
+				{% endif %}
+			</label>
+			<input type="file" id="Cover hochladen" name="cover">
+			<p class="help-block">
+				Lade ein Cover hoch
+			</p>
+		</div>
+
+		<div class="form-group">
+			<label for="image_id">Ein vorhandenes Cover wählen</label>
+			<select class="form-control" id="image_id" name="image_id">
+				<option value=""></option>
+				{% for cover in covers %}
+					<option value="{{cover.id}}" {% if entity != None and entity.image_id == cover.id %} selected {% endif %}>{{cover.name}}</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		{% if type != 'movie' %}
+		<div class="form-group">
+			<label for="data">
+				{% if type == 'book' %}
+				Lade einen Buch hoch
+				{% endif %}
+				{% if type == 'song' %}
+				Lade einen Song hoch
+				{% endif %}
+			</label>
+			<input type="file" id="data" name="data">
+			<p class="help-block">
+				{% if type == 'book' %}
+				Lade einen Buch hoch
+				{% endif %}
+				{% if type == 'song' %}
+				Lade einen Song hoch
+				{% endif %}
+			</p>
+		</div>
+		
+		<div class="form-group">
+			<label for="data_id">
+				{% if type == 'book' %}
+					Buch wählen
+				{% endif %}
+				{% if type == 'song' %}
+					Aus bereits vorhandenen Songs wählen
+				{% endif %}
+			</label>
+			<select class="form-control" id="data_id" name="data_id">
+				<option value=""></option>
+				{% for file in files %}
+					<option value="{{file.id}}" {% if entity != None and entity.data_id == file.id %} selected {% endif %}>{{file.name}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		{% endif %}
+
+		<div class="form-group">
+			<label for="series_id">
+				{% if type == 'song' %}
+				Aus bereits vorhandenen Alben oder Soundtracks wählen
+				{% endif %}
+				{% if type == 'book' %}
+				Aus bereits vorhandenen Buchreihen wählen
+				{% endif %}
+				{% if type == 'movie' %}
+				Aus bereits vorhandenen Serien wählen
+				{% endif %}
+			</label>
+			<select class="form-control" id="series_id" name="series_id">
+				<option value=""></option>
+				{% for s in series %}
+					<option value="{{s.id}}" {% if entity != None and entity.series_id == s.id %} selected {% endif %}>{{s.name}}</option>
+				{% endfor %}
+			</select>
+		</div>
+
+		{% if type == 'movie' %}
+		<div class="form-group">
+			<label for="soundtrack_id">Zugehöriger Soundtrack</label>
+			<select class="form-control" id="soundtrack_id" placeholder= "Aus bereits vorhandenen Soundtracks wählen" "name=soundtrack_id">
+				<option value=""></option>
+				{% for s in soundtracks %}
+					<option value="{{s.id}}">{{s.name}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		{% endif %}
+
+		<div class="form-group">
+			<label for="Bemerkung">
+				{% if type == 'song' %}
+					Lyrics
+				{% endif %}
+				{% if type == 'book' %}
+					Kurzbeschreibung
+				{% endif %}
+				{% if type == 'movie' %}
+					Kurzbeschreibung
+				{% endif %}
+			</label>
+			<textarea class="form-control" rows="1" id="Bemerkung" name="description">{% if entity != None %}{{entity.description}}{% endif %}</textarea>
+		</div>
+		
+		<div class="form-group">
+			<label for="Lange">
+				{% if type == 'song' %}
+					Länge des Songs in s
+				{% endif %}
+				{% if type == 'book' %}
+					Seitenanzahl
+				{% endif %}
+				{% if type == 'movie' %}
+					Länge des Films in min
+				{% endif %}
+			</label>
+
+			<input type="number" class="form-control" id="Lange" name="length" {% if entity != None %} value="{{entity.length}}" {% endif %}>
+		</div>
+
+		{% if type == 'book' %}
+		<div class="form-group">
+			<label for="ISBN">
+				ISBN
+			</label>
+			<input type="text" class="form-control" id="ISBN" name="isbn" {% if entity != None %} value="{{entity.isbn}}" {% endif %}>
+		</div>
+		{% endif %}
+
+		<div class="form-group">
+			<label for="genres">Genres</label>
+			<select multiple class="form-control" id="genres" name="genres">
+			{% for genre in genres %}
+				<option value="{{genre.id}}" {% if entity != None and genre.id in tag_ids %} selected {% endif %}{{genre.name}}</option>
+			{% endfor %}
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="keywords">Schlagwörter zum Thema</label>
+			<select multiple class="form-control" id="keywords" name="keywords">
+			{% for keyword in keywords %}
+				<option value="{{keyword.id}}" {% if entity != None and keyword.id in tag_ids %} selected {% endif %}>{{keyword.name}}</option>
+			{% endfor %}
+			</select>
+		</div>
+
+		<div class="col-md-6">
+			<button type="submit" class="btn btn-primary btn-lg btn-block">
+				{% if type == 'song' %}
+					Song speichern
+				{% endif %}
+				{% if type == 'book' %}
+					Buch speichern
+				{% endif %}
+				{% if type == 'movie' %}
+					Film speichern
+				{% endif %}
+
+			</button>
+		</div>
+		
+		<div class="col-md-6">
+			<button type="button" class="btn btn-primary btn-lg btn-block" a href="menu.html" >Eingabe abbrechen und zurück zur Hauptseite</button>
+		</div>
+
+
+		</form>
+	</div>
+
+	<div class="col-md-2">
+	</div>
+</div>
+
+
+{% endblock %}
